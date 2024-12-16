@@ -2,16 +2,22 @@ import axios from "axios";
 import React, { useState } from "react";
 import toast from "react-hot-toast";
 import { Link, Navigate, useNavigate } from "react-router-dom";
+import url from "../url";
 
 function Signup() {
   const [username, setUsername] = useState("");
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
+  const [loading, setLoading]= useState(false)
 
   const navigateTo = useNavigate()
 
   const handleRegister = async (e) => {
     e.preventDefault();
+    console.log(username,
+      email,
+      password)
+    setLoading(true)
     try {
       const { data } = await axios.post(
         `${url}/user/signup`,
@@ -40,6 +46,7 @@ function Signup() {
       console.log(error);
       toast.error(error.response.data.errors || "User Registration failed ");
     }
+    setLoading(false)
   };
 
   return (
@@ -90,7 +97,7 @@ function Signup() {
                 type="submit"
                 className="w-full bg-blue-600 text-white hover:bg-blue-900 duration-300 rounded-xl font-semiold p-3"
               >
-                Signup
+                {loading ? "Submitting":"Sign Up"}
               </button>
               <p className="mt-4 text-center text-gray-600">
                 Already have an account?{" "}

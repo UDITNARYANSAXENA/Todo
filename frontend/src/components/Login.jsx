@@ -7,11 +7,13 @@ import url from "../url";
 function Login() {
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
+  const [loading, setLoading]= useState(false)
 
   const navigateTo = useNavigate();
 
   const handleRegister = async (e) => {
     e.preventDefault();
+    setLoading(true)
     try {
       const { data } = await axios.post(
         `${url}/user/login`,
@@ -35,8 +37,9 @@ function Login() {
       
     } catch (error) {
       console.log(error);
-      toast.error(error.response.data.errors || "User Registration failed ");
+      toast.error(error.response.data.errors || "User Login failed ");
     }
+    setLoading(false)
   };
 
   return (
@@ -75,7 +78,7 @@ function Login() {
                 type="submit"
                 className="w-full bg-blue-600 text-white hover:bg-blue-900 duration-300 rounded-xl font-semiold p-3"
               >
-                Login
+                {loading ? "Submitting":"Log in"}
               </button>
               <p className="mt-4 text-center text-gray-600">
                 don't Have an account?{" "}
