@@ -9,9 +9,9 @@ import { authenticate } from "../middleware/authorize.js";
 
 const router = express.Router();
 
-router.post("/create",authenticate, createTodo);
-router.get("/fetch", authenticate, getTodos);
-router.put("/update/:id", authenticate, updateTodo);
-router.delete("/delete/:id",authenticate, deleteTodo);
+router.post("/create", createTodo);
+router.get("/fetch",  getTodos);
+router.put("/update/:id",  updateTodo);
+router.delete("/delete/:id", deleteTodo);
 
 export default router;
